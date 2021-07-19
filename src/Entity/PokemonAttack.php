@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PokemonAttackRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+
 
 /**
  * @ORM\Entity(repositoryClass=PokemonAttackRepository::class)
@@ -13,28 +15,35 @@ use Doctrine\ORM\Mapping as ORM;
 class PokemonAttack
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
+     *
      * @ORM\Column(type="integer")
      */
     private $level;
 
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Pokemon::class, inversedBy="attack")
      * @ORM\JoinColumn(nullable=false)
      */
     private $pokemon;
 
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Attack::class, inversedBy="pokemonAttacks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $attack;
+
+    /**
+     * PokemonAttack constructor.
+     * @param $pokemon
+     * @param $attack
+     */
+    public function __construct(Pokemon $pokemon, Attack $attack)
+    {
+        $this->pokemon = $pokemon;
+        $this->attack = $attack;
+    }
 
     public function getId(): ?int
     {
@@ -58,24 +67,8 @@ class PokemonAttack
         return $this->pokemon;
     }
 
-    public function setPokemon(?Pokemon $pokemon): self
-    {
-        $this->pokemon = $pokemon;
-
-        return $this;
-    }
-
     public function getAttack(): ?Attack
     {
         return $this->attack;
     }
-
-    public function setAttack(?Attack $attack): self
-    {
-        $this->attack = $attack;
-
-        return $this;
-    }
-
-
 }

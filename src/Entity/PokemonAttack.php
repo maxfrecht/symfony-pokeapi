@@ -2,16 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PokemonAttackRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\UniqueConstraint;
-
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonAttackRepository::class)
  */
-#[ApiResource]
 class PokemonAttack
 {
     /**
@@ -24,6 +21,7 @@ class PokemonAttack
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Pokemon::class, inversedBy="attack")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $pokemon;
 
@@ -31,6 +29,7 @@ class PokemonAttack
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Attack::class, inversedBy="pokemonAttacks")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $attack;
 

@@ -7,11 +7,15 @@ use App\Repository\PokemonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['pokemon:get']]
+)]
 class Pokemon
 {
     /**
@@ -19,36 +23,43 @@ class Pokemon
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get'])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['pokemon:get'])]
     private $name;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get'])]
     private $pokeapiId;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get'])]
     private $height;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get'])]
     private $weight;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get'])]
     private $baseExperience;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get'])]
     private $pokedexOrder;
 
     /**
@@ -58,6 +69,7 @@ class Pokemon
 
     /**
      * @ORM\OneToMany(targetEntity=PokemonAttack::class, mappedBy="pokemon")
+     * @MaxDepth(1)
      */
     private $attacks;
 

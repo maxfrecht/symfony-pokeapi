@@ -23,6 +23,7 @@ class Type
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['pokemon:get', 'type:get', 'attack:get'])]
     private $id;
 
     /**
@@ -33,7 +34,7 @@ class Type
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(['type:get'])]
+    #[Groups(['type:get', 'attack:get', 'pokemon:get'])]
     private $name;
 
     /**

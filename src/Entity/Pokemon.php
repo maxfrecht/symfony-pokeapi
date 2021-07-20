@@ -65,12 +65,14 @@ class Pokemon
     /**
      * @ORM\ManyToMany(targetEntity=Type::class, inversedBy="pokemon")
      */
+    #[Groups(['pokemon:get'])]
     private $types;
 
     /**
      * @ORM\OneToMany(targetEntity=PokemonAttack::class, mappedBy="pokemon")
      * @MaxDepth(1)
      */
+    #[Groups(['pokemon:get'])]
     private $attacks;
 
 

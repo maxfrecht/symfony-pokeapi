@@ -33,7 +33,7 @@ class Attack
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(['attack:get'])]
+    #[Groups(['attack:get', 'pokemon:get'])]
     private $name;
 
     /**
@@ -59,6 +59,7 @@ class Attack
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
+    #[Groups(['attack:get'])]
     private $type;
 
     /**
